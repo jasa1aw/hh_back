@@ -10,10 +10,10 @@ const db = new Sequelize('hh_back', 'postgres', 'rootAdmin', {
         acquire: 30000,
         idle: 10000
     },
-  });
+});
 
-  db.authenticate()
-  .then(() => console.log('Database connnected'))
-  .catch((err) => console.log('Error ' + err))
+db.authenticate()
+.then(() => console.log('Database connnected'))
+.catch((err) => console.log('Error ' + err))
 
-  module.exports = db;
+module.exports = db;

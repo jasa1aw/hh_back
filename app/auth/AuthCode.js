@@ -18,4 +18,4 @@ const AuthCode = db.define('AuthCode', {
     timestamps: false,
 });
 
-module.exports = {AuthCode};
+module.exports = AuthCode;
