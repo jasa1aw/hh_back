@@ -1,6 +1,6 @@
 <div align='center'>
 
-<h1>Head HunterBackend</h1>
+<h1>Head Hunter Backend</h1>
 </div>
 
 ## :toolbox: Getting Started
