@@ -152,6 +152,16 @@ const searchVacancy = async (req, res) => {
     res.status(200).send(vacancies)
 }
 
+const getAllVacancies = async (req, res) => {
+    try {
+        const vacancies = await Vacancy.findAll({})
+        res.status(200).send(vacancies)
+    } catch (error) {
+        console.error("Error fetching vacancies:", error);
+        res.status(500).send({ error: "An error occurred while fetching your vacancies." });
+    }
+}
+
 module.exports = {
     getExperiences,
     createVacancy,
@@ -159,5 +169,6 @@ module.exports = {
     getVacancy,
     deleteVacancy,
     editVacancy,
-    searchVacancy
+    searchVacancy,
+    getAllVacancies
 }

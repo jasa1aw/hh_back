@@ -1,7 +1,6 @@
 const Resume = require('./models/Resume')
 const validateResume = (req, res, next) => {
     let errors = {};
-
     if(!req.body.first_name || req.body.first_name.length === 0) 
         errors.first_name = "Поле Имя обязательное"
 
@@ -17,15 +16,13 @@ const validateResume = (req, res, next) => {
     if(!req.body.about || req.body.about.length === 0) 
         errors.about = "Поле О себе обязательное"
 
-
     if(JSON.stringify(errors) !== JSON.stringify({})) res.status(400).send(errors)
     else next()
-
 }
 
 const isAuthorOfResume = async (req, res, next) => {
     const id = req.params.id || req.body.id
-
+    
     const resume = await Resume.findByPk(id)
     if(!resume) res.status(400).send({message: "Resume with that id is not exist"})
     else if(req.user.id === resume.userId) next();

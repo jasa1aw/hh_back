@@ -118,5 +118,14 @@ const logIn = async(req, res) =>{
         };
     }; 
 };
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.findAll();
+        res.status(200).send(users);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).send({ error: "An error occurred while fetching your users." });
+    }
+};
 
-module.exports = {sendVerificationEmail, verifyCode, signUp, logIn};
+module.exports = {sendVerificationEmail, verifyCode, signUp, logIn, getAllUsers};

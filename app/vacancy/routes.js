@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const {getExperiences, getMyVacancies, createVacancy, getVacancy, deleteVacancy, editVacancy, searchVacancy} = require('./controllers')
+const {getExperiences, getMyVacancies, createVacancy, getVacancy, deleteVacancy, editVacancy, searchVacancy, getAllVacancies} = require('./controllers')
 const passport = require('passport')
 const {isManager} = require('../auth/middlewares')
 const {validateVacancy, isAuthorOfVacancy} = require('./middlewares')
@@ -12,6 +12,7 @@ router.get('/api/vacancy/search', searchVacancy)
 router.get('/api/vacancy/:id', getVacancy)
 router.delete('/api/vacancy/:id', passport.authenticate('jwt', { session: false }), isManager, isAuthorOfVacancy, deleteVacancy)
 router.put('/api/vacancy', passport.authenticate('jwt', { session: false }), isManager, isAuthorOfVacancy, validateVacancy, editVacancy)
+router.get('/api/allVacancies', getAllVacancies)
 
 
 
