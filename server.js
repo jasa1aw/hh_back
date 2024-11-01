@@ -3,7 +3,7 @@ const logger = require('morgan')
 const passport = require('passport');
 const cors = require("cors");
 const app = express();
-const PORT = 3002;
+const PORT = 6868;
 
 app.use(logger('dev'))
 app.use(cors())
