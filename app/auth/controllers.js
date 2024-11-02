@@ -8,6 +8,7 @@ const Role = require('./Role');
 const Company = require('./Company');
 
 const {jwtOptions} = require('./passport');
+const { use } = require('passport');
 
 const sendVerificationEmail = (req, res) =>{
     const code = "HH" + Date.now();
@@ -86,17 +87,18 @@ const signUp = async(req, res) => {
 }
 
 const logIn = async(req, res) =>{
-    if(!req.body.email || req.body.email.length === 0 || 
-        !req.body.password || req.body.password.length === 0){
+    if(!req.query.email || req.query.email.length === 0 || 
+        !req.query.password || req.query.password.length === 0){
             res.status(401).send({message: "Bad Credentials"})
     }else{
-        const user = await User.findOne({where: {email: req.body.email}});
+        console.log(req.query);
+        const user = await User.findOne({where: {email: req.query.email}});
 
         if(!user){
-            return res.status(401).send({message: "User with that email is not exists"})
+            return res.status(401).send({message: `User with that email is not exists`})
         };
-        console.log(req.body.password, user.password);
-        const isMatch = await bcrypt.compare(req.body.password, user.password);
+        console.log(req.query.password, user.password);
+        const isMatch = await bcrypt.compare(req.query.password, user.password);
 
         if(isMatch){
             const role = await Role.findByPk(user.roleId)
@@ -118,6 +120,7 @@ const logIn = async(req, res) =>{
         };
     }; 
 };
+
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll();

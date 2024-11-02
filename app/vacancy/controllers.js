@@ -36,6 +36,7 @@ const createVacancy = async (req, res) => {
 
 
 const getMyVacancies = async (req, res) => {
+    console.log(req.user)
     const vacancies = await Vacancy.findAll({
         where: {
             companyId: req.user.companyId

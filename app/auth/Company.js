@@ -23,4 +23,4 @@ const Company = db.define('Company', {
     timestamps: false,
 });
 
-module.exports = {Company};
+module.exports = Company;

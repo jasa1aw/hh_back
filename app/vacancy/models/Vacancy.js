@@ -3,7 +3,7 @@ const db = require('../../../config/db'); // Импортируйте настр
 const City = require('../../region/City')
 const User = require('../../auth/User')
 const Specialization = require('../../specializations/models/Specialization');
-const {Company} = require('../../auth/Company');
+const Company = require('../../auth/Company');
 const Experience = require('./Experience');
 const EmploymentType = require('../../employment-type/EmploymentType')
 
