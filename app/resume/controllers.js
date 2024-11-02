@@ -124,7 +124,7 @@ const editResume = async (req, res) => {
         const existingResume = await Resume.findByPk(resumeId);
 
         if (!existingResume) {
-            return res.status(404).send({ error: "Resume not found." });
+            return res.status(404).send({ error: "Resume not foundn." });
         }
 
         // Prepare the updated fields, retaining existing values for unspecified fields
@@ -260,34 +260,6 @@ const deleteResume = async (req, res) => {
     }
 };
 
-const searchResume = async (req, res) => {
-    try {
-        const options = {};
-        const { q, cityId, salary_from, salary_to, salary_type, citizenship } = req.query;
-
-        if (q) {
-            options[Op.or] = [
-                { first_name: { [Op.iLike]: `%${q}%` } },
-                { last_name: { [Op.iLike]: `%${q}%` } },
-                { position: { [Op.iLike]: `%${q}%` } },
-                { about: { [Op.iLike]: `%${q}%` } },
-                { skills: { [Op.iLike]: `%${q}%` } }
-            ];
-        }
-        if (citizenship) options.citizenship = citizenship;
-        if (cityId) options.cityId = cityId;
-        if (salary_from) options.salary = { [Op.gte]: salary_from * 1 };
-        if (salary_to) options.salary = options.salary || {};
-        if (salary_to) options.salary[Op.lte] = salary_to * 1;
-        if (salary_type) options.salary_type = salary_type;
-
-        const resumes = await Resume.findAll({ where: options });
-        res.status(200).send(resumes);
-    } catch (error) {
-        console.error("Error searching resumes:", error);
-        res.status(500).send({ error: "An error occurred while searching resumes." });
-    }
-};
 
 const getAllResumes = async (req, res) => {
     try {
