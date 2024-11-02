@@ -1,9 +1,8 @@
-const {Sequelize} = require('sequelize')
+const { Sequelize } = require('sequelize');
 
 const db = new Sequelize('hh_back', 'postgres', 'rootAdmin', {
-    host: 'localhost',
+    host: 'postgresdb', // Измените 'localhost' на 'db'
     dialect: 'postgres',
-    operatorsAliases: false,
     pool: {
         max: 5,
         min: 0,
@@ -13,7 +12,7 @@ const db = new Sequelize('hh_back', 'postgres', 'rootAdmin', {
 });
 
 db.authenticate()
-.then(() => console.log('Database connnected'))
-.catch((err) => console.log('Error ' + err))
+.then(() => console.log('Database connected'))
+.catch((err) => console.log('Error: ' + err));
 
 module.exports = db;
