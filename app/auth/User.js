@@ -40,8 +40,4 @@ const User = db.define('User', {
     } else {
         console.error('Ошибка: Company не является моделью Sequelize');
     }
-
-    // User.belongsTo(Role, {foreignKey: 'roleId'});
-    // User.belongsTo(Company, {foreignKey: 'companyId'});
-
     module.exports = User;

@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 const db = new Sequelize('hh_back', 'postgres', 'rootAdmin', {
-    host: 'postgresdb', // Измените 'localhost' на 'db'
+    host: 'localhost', // Измените 'localhost' на 'db'
     dialect: 'postgres',
     pool: {
         max: 5,

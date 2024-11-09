@@ -3,7 +3,7 @@ const logger = require('morgan')
 const passport = require('passport');
 const cors = require("cors");
 const app = express();
-const PORT = 6868;
+const PORT = 3002;
 
 app.use(logger('dev'))
 app.use(cors())
@@ -25,6 +25,7 @@ app.use(require('./app/resume/routes'))
 app.use(require('./app/specializations/routes'))
 app.use(require('./app/vacancy/routes'))
 app.use(require('./app/applies/routes'))
+app.use(require('./app/favorites/routes'))
 
 
 app.listen(PORT, () => {

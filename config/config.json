@@ -3,21 +3,21 @@
     "username": "postgres",
     "password": "rootAdmin",
     "database": "hh_back",
-    "host": "postgresdb",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
     "password": "rootAdmin",
     "database": "hh_back",
-    "host": "postgresdb",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "rootAdmin",
     "database": "hh_back",
-    "host": "postgresdb",
+    "host": "localhost",
     "dialect": "postgres"
   }
 }

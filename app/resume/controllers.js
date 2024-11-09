@@ -277,6 +277,5 @@ module.exports = {
     getResume,
     deleteResume,
     editResume,
-    searchResume,
     getAllResumes
 };
