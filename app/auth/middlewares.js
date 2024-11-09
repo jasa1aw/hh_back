@@ -3,8 +3,8 @@ const User = require('./User');
 
 const isEmployee = async(req, res, next) => {
     if(req.user){
-        const role = await Role.findByPk(req.user.roleId);
-        if(role.name === "employee") next()
+        const role = await Role.findByPk(req.user.RoleId);
+        if(role.id === 1) next()
         else res.status(403).send({message: "Access definied"})
     }else{
         res.status(403).send({message: 'Unauthorized'})

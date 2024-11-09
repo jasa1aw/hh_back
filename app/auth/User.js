@@ -42,13 +42,13 @@ const User = db.define('User', {
         timestamps: false,// Отключение автоматических полей createdAt и updatedAt
     });
     if (Role && Role.init instanceof Function) {
-        User.belongsTo(Role, { foreignKey: 'roleId' });
+        User.belongsTo(Role, { foreignKey: 'RoleId' });
     } else {
         console.error('Ошибка: Role не является моделью Sequelize');
     }
     
     if (Company && Company.init instanceof Function) {
-        User.belongsTo(Company, { foreignKey: 'companyId' });
+        User.belongsTo(Company, { foreignKey: 'CompanyId' });
     } else {
         console.error('Ошибка: Company не является моделью Sequelize');
     }

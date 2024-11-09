@@ -84,7 +84,7 @@ const registerApplicant = async (req, res) => {
             phone,
             birthday,
             gender,
-            role: role.id
+            RoleId: role.id
         })
         res.status(200).end();
 
@@ -113,7 +113,7 @@ const signUp = async(req, res) => {
         first_name: req.body.firstName,
         last_name: req.body.lastName,
         companyId: company.id,
-        roleId: role.id
+        RoleId: role.id
     });
 
     res.status(200).end();
