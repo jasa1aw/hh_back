@@ -11,15 +11,27 @@ const Company = require('./Company');
 const {jwtOptions} = require('./passport');
 const { use } = require('passport');
 
-const sendVerificationEmail = (req, res) =>{
-    const code = "HH" + Date.now();
+const sendVerificationEmail = async(req, res) =>{
+    const user = await User.findOne({where: {email: req.body.email}});
+    if(!user){
+        return res.status(404).send({ error: "Email not found in the system." });
+    }
+    const genCode = () => {
+        let verifyCode = "";
+        for (let i = 0; i < 4; i++) {
+            const ch = Math.floor(Math.random() * 10);
+            verifyCode += ch;
+        }
+        return verifyCode;
+    };
+    const verificationCode = genCode();
 
     AuthCode.create({
         email: req.body.email,
-        code: code,
+        code: verificationCode,
         valid_till: Date.now() + 120000
     })
-    sendEmail(req.body.email, "Код авторизации hh", code)
+    sendEmail(req.body.email, "Код авторизации hh", verificationCode)
     res.status(200).end();
 }
 
@@ -41,16 +53,14 @@ const verifyCode = async(req, res) => {
         let user = await User.findOne({where: {email: req.body.email}});
         const role = await Role.findOne({where: {name: 'employee'}});
         if(!user){
-            user = await User.create({
-                roleId: role.id,
-                email: req.body.email
-            })
+            return res.status(404).send({ error: "Email not found in the system." });
         };
 
         const token = jwt.sign({
             id: user.id,
             email: user.email,
-            full_name: user.full_name,
+            first_name: user.first_name,
+            last_name: user.last_name,
             phone: user.phone,
             role: {
                 id: role.id,
@@ -62,6 +72,27 @@ const verifyCode = async(req, res) => {
         res.status(200).send({token});
     };
 };
+
+const registerApplicant = async (req, res) => {
+    try {
+        const role = await Role.findOne({where: {name: 'employee'}});
+        const { firstName, lastName, email, phone, birthday, gender } = req.body;
+        await User.create({
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            phone,
+            birthday,
+            gender,
+            role: role.id
+        })
+        res.status(200).end();
+
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).send({ error: "An error occurred while fetching your users." });
+    }
+}
 
 const signUp = async(req, res) => {
     const role = await Role.findOne({where: {name: 'manager'}});
@@ -79,7 +110,8 @@ const signUp = async(req, res) => {
     await User.create({
         email: req.body.email,
         password: hashedPassword,
-        full_name: req.body.full_name,
+        first_name: req.body.firstName,
+        last_name: req.body.lastName,
         companyId: company.id,
         roleId: role.id
     });
@@ -132,4 +164,4 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-module.exports = {sendVerificationEmail, verifyCode, signUp, logIn, getAllUsers};
+module.exports = {sendVerificationEmail, verifyCode, registerApplicant, signUp, logIn, getAllUsers};

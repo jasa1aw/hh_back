@@ -8,30 +8,30 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       name: {
-        allowNull: false,
         type: Sequelize.STRING,
+        allowNull: false
       },
       level: {
-        allowNull: false,
         type: Sequelize.STRING,
+        allowNull: false
       },
       resumeId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Resumes',
-          key: 'id',
+          key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
+        onDelete: 'CASCADE'
+      }
     });
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('ForeignLanguages')
+    await queryInterface.dropTable('ForeignLanguages');
   }
 };

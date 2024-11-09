@@ -5,19 +5,19 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('Countries', {
       id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
     });
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Countries')
+    await queryInterface.dropTable('Countries');
   }
 };

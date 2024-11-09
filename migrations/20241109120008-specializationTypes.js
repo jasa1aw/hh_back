@@ -14,6 +14,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      // Другие поля, если есть
     });
   },
 

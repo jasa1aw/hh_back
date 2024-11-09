@@ -5,51 +5,40 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('Favorites', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true,
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users', // Assumes 'Users' table exists
-          key: 'id'
+          model: 'Users', // Make sure the table name is correct
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       resumeId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'Resumes', // Assumes 'Resumes' table exists
-          key: 'id'
+          model: 'Resumes', // Make sure the table name is correct
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE',
       },
       vacancyId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'Vacancies', // Assumes 'Vacancies' table exists
-          key: 'id'
+          model: 'Vacancies', // Make sure the table name is correct
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE',
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      }
     });
   },
 

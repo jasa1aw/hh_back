@@ -3,22 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Specializations', {
+    await queryInterface.createTable('ResumeEmploymentTypes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      specializationTypeId: {
+      ResumeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'SpecializationTypes',
+          model: 'Resumes',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      EmploymentTypeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'EmploymentTypes',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -28,6 +34,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Specializations');
+    await queryInterface.dropTable('ResumeEmploymentTypes');
   }
 };

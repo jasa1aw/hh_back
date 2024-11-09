@@ -3,33 +3,10 @@ const db = require('../../../config/db'); // Импортируйте настр
 const City = require('../../region/City')
 const User = require('../../auth/User')
 const Country = require('../../region/Country')
+const Specialization = require('../../specializations/models/Specialization')
 
 const Resume = db.define('Resume', {
-  first_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  last_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  birthday: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  gender: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   about: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  position: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -41,7 +18,6 @@ const Resume = db.define('Resume', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
   main_language: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -50,10 +26,18 @@ const Resume = db.define('Resume', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  contact: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  views: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
 });
-
 Resume.belongsTo(City, { foreignKey: 'cityId', as: 'city' });
 Resume.belongsTo(User, { foreignKey: 'userId' });
 Resume.belongsTo(Country, { foreignKey: 'citizenship', as: 'citizenshipObj' });
+Resume.belongsTo(Specialization, { foreignKey: 'specializationId', as: 'specialization' });
 
 module.exports = Resume;

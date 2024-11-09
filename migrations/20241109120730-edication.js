@@ -3,55 +3,52 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Education', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
+      level: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+        allowNull: false
       },
-      password: {
+      university_name: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false
       },
-      phone: {
+      faculty: {
         type: Sequelize.STRING,
-        allowNull: true,
-        unique: true,
+        allowNull: false
       },
-      full_name: {
+      major: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false
       },
-      roleId: {
+      end_date: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      resumeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Roles',
+          model: 'Resumes',
           key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
-      },
-      companyId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'Companies',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
+      }
     });
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
   }
 };

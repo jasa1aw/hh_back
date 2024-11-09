@@ -8,38 +8,38 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       company_name: {
-        allowNull: false,
         type: Sequelize.STRING,
+        allowNull: false
       },
       company_description: {
-        allowNull: false,
         type: Sequelize.TEXT,
+        allowNull: false
       },
       responsibilities: {
-        allowNull: false,
         type: Sequelize.TEXT,
+        allowNull: false
       },
       start_date: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false
       },
       end_date: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false
       },
       resumeId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Resumes',
-          key: 'id',
+          key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      }
+        onDelete: 'CASCADE'
+      },
     });
   },
 

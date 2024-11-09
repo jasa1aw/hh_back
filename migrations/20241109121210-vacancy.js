@@ -11,103 +11,99 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.STRING
       },
       salary_from: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.INTEGER
       },
       salary_to: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.INTEGER
       },
       salary_type: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.STRING
       },
       address: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.STRING
       },
       description: {
+        type: Sequelize.TEXT,
         allowNull: false,
-        type: Sequelize.TEXT
       },
       skills: {
+        type: Sequelize.TEXT,
         allowNull: false,
-        type: Sequelize.TEXT
       },
       about_company: {
+        type: Sequelize.TEXT,
         allowNull: false,
-        type: Sequelize.TEXT
       },
       cityId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Cities',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       userId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'SET NULL',
       },
       companyId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Companies',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'SET NULL',
       },
       specializationId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Specializations',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       experienceId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Experiences',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       employmentTypeId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'EmploymentTypes',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
+        type: Sequelize.DATE
+      }
     });
   },
 

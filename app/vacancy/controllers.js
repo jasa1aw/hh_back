@@ -29,7 +29,6 @@ const createVacancy = async (req, res) => {
             about_company: req.body.about_company,
             userId: req.user.id,
             companyId: req.user.companyId,
-
     })
     res.status(200).send(vacancy)
 }
