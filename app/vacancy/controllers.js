@@ -38,7 +38,7 @@ const getMyVacancies = async (req, res) => {
     console.log(req.user)
     const vacancies = await Vacancy.findAll({
         where: {
-            companyId: req.user.companyId
+            companyId: req.user.CompanyId
         }
     })
     res.status(200).send(vacancies)

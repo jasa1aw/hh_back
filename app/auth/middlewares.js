@@ -13,7 +13,7 @@ const isEmployee = async(req, res, next) => {
 
 const isManager = async(req, res, next) => {
     if(req.user){
-        const role = await Role.findByPk(req.user.roleId);
+        const role = await Role.findByPk(req.user.RoleId);
         if(role.name === "manager") next()
         else res.status(403).send({message: "Access definied"})
     }else{

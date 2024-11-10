@@ -101,7 +101,7 @@ const signUp = async(req, res) => {
         name: req.body.company_name,
         description: req.body.company_description,
         address: req.body.company_address,
-        logo: '/company/' + req.file.filename
+        logo: 'public/company/' + req.file.filename
     })
 
     const salt = await bcrypt.genSalt(10);
@@ -134,7 +134,7 @@ const logIn = async(req, res) =>{
         const isMatch = await bcrypt.compare(req.query.password, user.password);
 
         if(isMatch){
-            const role = await Role.findByPk(user.roleId)
+            const role = await Role.findByPk(user.RoleId)
             const token = jwt.sign({
                 id: user.id,
                 email: user.email,
