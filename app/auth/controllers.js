@@ -2,11 +2,11 @@ const sendEmail = require('../utils/sendMail');
 const AuthCode = require('./AuthCode');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
-
 const User = require('./User');
-const Role = require('./Role');
+const Role = require('./Role')
 const Company = require('./Company');
+const Resume = require('../resume/models/Resume')
+const Vacancy = require('../vacancy/models/Vacancy')
 
 const {jwtOptions} = require('./passport');
 const { use } = require('passport');
@@ -153,6 +153,64 @@ const logIn = async(req, res) =>{
         };
     }; 
 };
+const editUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { first_name, last_name, phone, birthday, gender } = req.body;
+
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(404).send({ error: "User not found" });
+        }
+
+        // Update user details except role
+        await user.update({ first_name, last_name, phone, birthday, gender });
+
+        res.status(200).send({ message: "User details updated successfully" });
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).send({ error: "An error occurred while updating user details." });
+    }
+};
+
+const profilePage = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const user = await User.findByPk(userId, {
+            include: [{ model: Role, attributes: ['id', 'name'] }]
+        });
+        
+        if (!user) {
+            return res.status(404).send({ error: "User not found" });
+        }
+
+        const { first_name, last_name, birthday, gender, RoleId} = user;
+        let viewsCount = 0;
+        if (RoleId === 1) {
+            // Fetch CV views for employees
+            const resume = await Resume.findOne({ where: { userId: user.id } });
+            viewsCount = resume ? resume.views : 0;
+        } else if (RoleId === 2) {
+            // Fetch job views for employers
+            const vacancy = await Vacancy.findAll({ where: { userId: user.id } });
+            viewsCount = vacancy.reduce((total, vacancy) => total + vacancy.views, 0);
+        }
+
+        res.status(200).send({
+            name: first_name,
+            surname: last_name,
+            dateOfBirth: birthday,
+            gender,
+            role: user.RoleId,
+            viewsCount
+        });
+    } catch (error) {
+        console.error("Error fetching profile data:", error);
+        res.status(500).send({ error: "An error occurred while fetching profile data." });
+    }
+};
+
+
 
 const getAllUsers = async (req, res) => {
     try {
@@ -164,4 +222,4 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-module.exports = {sendVerificationEmail, verifyCode, registerApplicant, signUp, logIn, getAllUsers};
+module.exports = {sendVerificationEmail, verifyCode, registerApplicant, signUp, logIn, getAllUsers, editUser, profilePage};
